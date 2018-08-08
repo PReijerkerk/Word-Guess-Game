@@ -7,15 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css"/>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="assets/javascript/game.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                Hang Man
+                <h1>Hangman</h1>
+                <p id="wordPlaceholder">Text</p>
             </div>
             <div class="col-md-6">
                 <p class="instructions">Attempt to guess the hidden word by typing a letter in the given box</p>
@@ -24,11 +23,13 @@
                 <br>
                 <p class="guessesRemaining">You have # guesses remaining:</p>
                 <br>
-                <p class="guesses">These are letters you've already guessed:</p>
+                <h3>These are letters you've already guessed</h3>
+                <p id="guesses">These are letters you've already guessed:</p>
             </div>
         </div>
     </div>
-        
+   <!--Linking Javascript for custom .js-->
+    <script src="assets/javascript/game.js"></script>     
     
 </body>
 
