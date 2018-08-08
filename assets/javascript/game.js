@@ -33,6 +33,7 @@ document.onkeyup = function(event) {
         //convert user input key into an upper case string.
         userInput = String.fromCharCode(keyPress).toUpperCase();
         console.log(userInput + " This should match what key you enter");
+        checkLetter();
     }
     else if (e) {
         keyPress = e.which;
@@ -59,8 +60,8 @@ function startGame() {
         wordHolder.push("_");
         }
     console.log(wordHolder);
-    document.getElementById("blank-word").innerHTML =  wordHolder.join(" ");
-    document.getElementById("guessRemaining").innerHTML = guessRemaining;
+    document.getElementById("blank-word").append(wordHolder);
+    document.getElementById("guessRemaining").append(guessRemaining);
 };
 startGame();
 
@@ -76,13 +77,13 @@ for (i = 0; i < numBlanks; i++) {
 if (lettersInWord){
     for (i = 0; i < numBlanks; i++){
         if(chosenWord[i] === userInput){
-            wordHolder[i] = userInput;
+            wordHolder[i] = "X";
             console.log("This step works");
         }
     }
 } else{
     guessRemaining--;
-    incorrectGuesses.push(userInput);
+    incorrectGuesses.push();
     console.log("This step doesn't work");
 }
 };
