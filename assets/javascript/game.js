@@ -27,3 +27,25 @@ var wordArray = [PacManNames.word1, PacManNames.word2, PacManNames.word3, PacMan
 //Placeholder function to trigger start of game
 
 //Function to collect userKeyInput
+//----------------------------------
+document.onkeyup = function(event) {
+    console.log("This key was entered", event.key);
+    var keyPress;
+
+    if (typeof event != "undefined") {
+        keyPress = event.keyCode;
+
+        //convert user input key into an upper case string.
+        userInput = String.fromCharCode(keyPress).toUpperCase();
+        console.log(userInput + " This should match what key you enter");
+
+        //Track Letters guessed 
+        trackLetterGuesses(userInput);
+
+        //Based on user input reveals the word
+    }
+    else if (e) {
+        keyPress = e.which;
+    } return false;
+    
+};
