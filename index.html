@@ -10,21 +10,21 @@
 </head>
 
 <body>
+    <div class="panel panel-default" style="text-align: center">
+        <div class="panel-body">Solve these ghostly puzzles</div>
+    </div>
+    
+    <br>
+
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class=col-md-12 style="text-align: center">
                 <h1>Hangman</h1>
-                <p id="wordPlaceholder">Text</p>
-            </div>
-            <div class="col-md-6">
-                <p class="instructions">Attempt to guess the hidden word by typing a letter in the given box</p>
-                <br>
-                <p class="wins">You've won # times:</p>
-                <br>
-                <p class="guessesRemaining">You have # guesses remaining:</p>
-                <br>
-                <h3>These are letters you've already guessed</h3>
-                <p id="guesses">These are letters you've already guessed:</p>
+                <p>Guesses Remaining<span id="guessRemaining"></span></p>
+                <p>Incorrect Guesses<span id="incorrectGuesses"></span></p>
+                <p>Player Wins<span id="winCounter"></span></p>
+                <p>Player Losses<span id="lossCounter"></span></p>
+                <h3 id="blank-word"></h3>
             </div>
         </div>
     </div>

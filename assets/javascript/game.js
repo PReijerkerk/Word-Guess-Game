@@ -1,37 +1,31 @@
 //Variables
 //----------------
 
-var wins = 0;
-var guessesRemaining = 10;
-var lettersGuessed = [];
-var placeholderArray = [];
-var priorPlaceholderArray = [];
-var wordPlaceholder = [];
-var word= [];
-var wordString = "";
-var userInput = "";
+var chosenWord = "";
+var lettersInChosenWord = [];
+var numBlanks = 0;
+var wordHolder = [];
+var incorrectGuesses = [];
+var keyPress;
+var winCounter = 0;
+var lossCounter = 0;
+var guessRemaining = 10;
+var userInput;
 
-//Object for Pac-Man Hangman
-
-var PacManNames = {
-    word1: ["B","L","I","N","K","Y"],
-    word2: ["P","I","N","K","Y"],
-    word3: ["I","N","K","Y"],
-    word4: ["C","L","Y","D","E"],
-    word5: ["P","A","C","M","A","N"]
-};
-
-//Array of Pac-Man Names created from object created above
-var wordArray = [PacManNames.word1, PacManNames.word2, PacManNames.word3, PacManNames.word4, PacManNames.word5];
-
-//Placeholder function to trigger start of game
-createWord(wordArray);
+//Array of Pac-Man Names
+var wordArray = [
+    "BLINKY",
+    "PINKY",
+    "INKY",
+    "CLYDE",
+    "PACMAN"
+];
 
 //Function to collect userKeyInput
 //----------------------------------
 document.onkeyup = function(event) {
     console.log("This key was entered", event.key);
-    var keyPress;
+   // var keyPress;
 
     if (typeof (event.key) !="undefined") { 
         keyPress = event.keyCode;
@@ -39,76 +33,78 @@ document.onkeyup = function(event) {
         //convert user input key into an upper case string.
         userInput = String.fromCharCode(keyPress).toUpperCase();
         console.log(userInput + " This should match what key you enter");
-
-        //Track Letters guessed 
-        trackLetterGuesses(userInput);
-
-        //Based on user input reveals the word
     }
     else if (e) {
         keyPress = e.which;
     } return false;
-    
 };
 
-//Functions
+//Created a function to call at the start of the game
+function startGame() {
+    //Create the array for incorrectGuesses to hold any incorrect guesses
+    incorrectGuesses = [];
+    console.log("This is made to hold any wrong guesses at the start of the game", incorrectGuesses);
+    //sets the number of guesses remaining at game start to 10
+    guessRemaining = 10;
+    //creates an empty array to hold both the _ and the correct letters
+    wordHolder = [];
 
-//creates an Array with a randomly selected word from the Pac-Man wordArray
-function createWord(wordArray) {
-    word =wordArray[Math.floor(Math.random()* wordArray.length)];
-    console.log(word);
+    chosenWord = wordArray[Math.floor(Math.random()* wordArray.length)];
+    lettersInChosenWord = chosenWord.split("");
+    numBlanks = lettersInChosenWord.length;
+    console.log(chosenWord); //This will print the word to the console
+    console.log(numBlanks); //This should print the # of spaces to the console
 
-//creates a placeholder array for the chosen word
-createWordPlaceholder(word);
-return word;
+    for (var i = 0; i < numBlanks; i++){
+        wordHolder.push("_");
+        }
+    console.log(wordHolder);
+    document.getElementById("blank-word").innerHTML =  wordHolder.join(" ");
+    document.getElementById("guessRemaining").innerHTML = guessRemaining;
 };
+startGame();
 
-//defines the function for createWordPlaceholder
-function createWordPlaceholder(word) {
-    var wordPlaceholder = [];
+function checkLetter(){
+var lettersInWord = false;
 
-    //Fill wordPlaceholder Array with underscores
-    for (i = 0; i < word.length; i++) {
-        wordPlaceholder.push("_");
+for (i = 0; i < numBlanks; i++) {
+    if (chosenWord[i] == userInput){
+        lettersInWord = true;
     }
+}
 
-    //convert array into a string for displaying on html
-    wordString = wordPlaceholder.join(" ");
-
-    //Displays word on page
-    document.getElementById("wordPlaceholder").textContent = wordString;
-    return wordPlaceholder;
-};
-
-//Track user letter guesses
-function trackLetterGuesses(userInput) {
-    //Checks if the letter is already guessed
-    //Tracks letters only once
-    for (i = 0; i <lettersGuessed.length; i++) {
-        if (userInput == lettersGuessed[i]) {
-            return;
+if (lettersInWord){
+    for (i = 0; i < numBlanks; i++){
+        if(chosenWord[i] === userInput){
+            wordHolder[i] = userInput;
+            console.log("This step works");
         }
     }
-
-    //Push letters guessed into lettersGuessed
-    lettersGuessed.push(userInput);
-    console.log("letters guessed" + lettersGuessed[0]);
-
-    //convert the letters guessed into a string for displaying into the html
-    var lettersGuessedString = lettersGuessed.join(", ");
-    document.getElementById("guesses").innerHTML = lettersGuessedString;
-
-    //Reduces the number of guesses left
-    guessesRemaining--;
-
-    //display guesses left in html
-    document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
-    console.log("Guesses left" + guessesRemaining);
-
-    //Restart the game if guesses gets to 0
-    if (guessesRemaining == 0) {
-        restartGame();
-    }
-
-    return lettersGuessedString;
+} else{
+    guessRemaining--;
+    incorrectGuesses.push(userInput);
+    console.log("This step doesn't work");
+}
 };
+//created a function to determine if a game is won or lost
+function completeRound(){
+    document.getElementById("blank-word").innerHTML = wordHolder.join(" ");
+    document.getElementById("guessRemaining").innerHTML = guessRemaining;
+    document.getElementById("incorrectGuesses").innerHTML = incorrectGuesses.join(" ");
+
+    console.log(lettersInChosenWord);
+    console.log(wordHolder);
+    if (lettersInChosenWord.join(" ") === wordHolder.join(" ")){
+        winCounter++;
+        alert("You've Won")
+        document.getElementById("winCounter").innerHTML = winCounter;
+        startGame();
+    }
+    else if (guessRemaining === 0){
+        document.getElementById("lossCounter").innerHTML = lossCounter++;
+        document.getElementById("incorrectGuesses").innerHTML = "";
+        alert("You've run out of guesses");
+        startGame();
+    }
+};
+
