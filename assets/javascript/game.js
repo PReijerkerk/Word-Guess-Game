@@ -77,15 +77,21 @@ for (i = 0; i < numBlanks; i++) {
 if (lettersInWord){
     for (i = 0; i < numBlanks; i++){
         if(chosenWord[i] === userInput){
-            wordHolder[i] = "X";
+            wordHolder[i] = chosenWord[i];
             console.log("This step works");
+            console.log(wordHolder);
         }
     }
 } else{
     guessRemaining--;
-    incorrectGuesses.push();
+    incorrectGuesses.push(userInput);
     console.log("This step doesn't work");
+    console.log(guessRemaining);
+    console.log(incorrectGuesses);
 }
+document.getElementById("blank-word").innerHTML = wordHolder;
+document.getElementById("guessRemaining").innerHTML = guessRemaining;
+document.getElementById("incorrectGuesses").innerHTML = incorrectGuesses;
 };
 //created a function to determine if a game is won or lost
 function completeRound(){
