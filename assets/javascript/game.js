@@ -8,7 +8,7 @@ var wordHolder = [];
 var incorrectGuesses = [];
 var keyPress;
 var winCounter = 0;
-var lossCounter = 0;
+var lossCounter = 1;
 var guessRemaining = 10;
 var userInput;
 
@@ -88,6 +88,7 @@ if (lettersInWord){
     console.log("This step doesn't work");
     console.log(guessRemaining);
     console.log(incorrectGuesses);
+    completeRound();
 }
 document.getElementById("blank-word").innerHTML = wordHolder;
 document.getElementById("guessRemaining").innerHTML = guessRemaining;
@@ -101,7 +102,7 @@ function completeRound(){
 
     console.log(lettersInChosenWord);
     console.log(wordHolder);
-    if (lettersInChosenWord.join(" ") === wordHolder.join(" ")){
+    if (lettersInChosenWord.join("") === wordHolder.join("")){
         winCounter++;
         alert("You've Won")
         document.getElementById("winCounter").innerHTML = winCounter;
