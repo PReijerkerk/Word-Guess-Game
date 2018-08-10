@@ -1,7 +1,10 @@
 body {
     background-image: url("../images/Pac-man.png");
+    height: 100%;
+    width:100%;
 }
 
-.container {
-    background: white !important;
+p {
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
